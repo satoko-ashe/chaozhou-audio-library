@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>潮州话发音录音库管理系统</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <!-- 头部控制栏 -->
+        <header class="header">
+            <h1><i class="fas fa-microphone-alt"></i> 潮州话发音录音库</h1>
+            <div class="header-controls">
+                <button id="toggleDarkMode" class="btn-icon" title="切换深色模式">
+                    <i class="fas fa-moon"></i>
+                </button>
+                <button id="exportData" class="btn-icon" title="导出数据">
+                    <i class="fas fa-download"></i>
+                </button>
+                <button id="importData" class="btn-icon" title="导入数据">
+                    <i class="fas fa-upload"></i>
+                </button>
+                <button id="syncGithub" class="btn-icon" title="同步到GitHub">
+                    <i class="fab fa-github"></i>
+                </button>
+            </div>
+        </header>
+
+        <div class="main-content">
+            <!-- 左侧：录音控制区 -->
+            <div class="recorder-section">
+                <div class="recorder-controls">
+                    <h3><i class="fas fa-record-vinyl"></i> 录音控制</h3>
+                    
+                    <div class="current-item">
+                        <div class="item-display">
+                            <span class="item-label">当前录制：</span>
+                            <span id="currentCharacter" class="character-display">食</span>
+                            <span id="currentPinyin" class="pinyin-display">ziak8</span>
+                        </div>
+                        <div class="item-navigation">
+                            <button id="prevItem" class="btn-small">
+                                <i class="fas fa-chevron-left"></i> 上一个
+                            </button>
+                            <button id="nextItem" class="btn-small">
+                                下一个 <i class="fas fa-chevron-right"></i>
+                            </button>
+                            <button id="randomItem" class="btn-small">
+                                <i class="fas fa-random"></i> 随机
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- 录音状态显示 -->
+                    <div class="recorder-status">
+                        <div class="status-indicator">
+                            <div class="status-dot" id="recordingStatus"></div>
+                            <span id="statusText">准备录音</span>
+                        </div>
+                        <div class="timer" id="recordingTimer">00:00</div>
+                    </div>
+
+                    <!-- 波形显示 -->
+                    <div class="waveform-container">
+                        <canvas id="waveformCanvas"></canvas>
+                    </div>
+
+                    <!-- 录音控制按钮 -->
+                    <div class="recorder-buttons">
+                        <button id="startRecording" class="btn-record">
+                            <i class="fas fa-microphone"></i> 开始录音
+                        </button>
+                        <button id="stopRecording" class="btn-stop" disabled>
+                            <i class="fas fa-stop"></i> 停止录音
+                        </button>
+                        <button id="playRecording" class="btn-play" disabled>
+                            <i class="fas fa-play"></i> 播放录音
+                        </button>
+                        <button id="rerecord" class="btn-secondary" disabled>
+                            <i class="fas fa-redo"></i> 重新录制
+                        </button>
+                    </div>
+
+                    <!-- 音频质量指示器 -->
+                    <div class="quality-indicator">
+                        <div class="quality-meter">
+                            <div class="quality-label">音频质量：</div>
+                            <div class="meter-bar">
+                                <div class="meter-fill" id="qualityMeter"></div>
+                            </div>
+                            <span class="quality-score" id="qualityScore">--</span>
+                        </div>
+                        <div class="volume-indicator">
+                            <i class="fas fa-volume-up"></i>
+                            <div class="volume-bar">
+                                <div class="volume-level" id="volumeLevel"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 录音元数据表单 -->
+                <div class="metadata-form">
+                    <h3><i class="fas fa-info-circle"></i> 录音信息</h3>
+                    <form id="metadataForm">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="character">汉字：</label>
+                                <input type="text" id="character" value="食" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="pinyin">潮州拼音：</label>
+                                <input type="text" id="pinyin" value="ziak8" required>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="pronunciationType">读音类型：</label>
+                            <select id="pronunciationType">
+                                <option value="literary">文读音</option>
+                                <option value="colloquial" selected>白话音</option>
+                                <option value="special">特殊读音</option>
+                                <option value="variant">训读音</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="tone">声调：</label>
+                            <select id="tone">
+                                <option value="1">第1声（阴平）</option>
+                                <option value="2">第2声（阴上）</option>
+                                <option value="3">第3声（阴去）</option>
+                                <option value="4">第4声（阴入）</option>
+                                <option value="5">第5声（阳平）</option>
+                                <option value="6">第6声（阳上）</option>
+                                <option value="7">第7声（阳去）</option>
+                                <option value="8" selected>第8声（阳入）</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="exampleWords">例词（用逗号分隔）：</label>
+                            <input type="text" id="exampleWords" value="食饭,食茶,好食" placeholder="食饭,食茶,好食">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="notes">备注：</label>
+                            <textarea id="notes" rows="2" placeholder="添加发音说明..."></textarea>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="speakerName">发音人：</label>
+                                <input type="text" id="speakerName" value="默认发音人" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="dialectRegion">口音区域：</label>
+                                <input type="text" id="dialectRegion" value="潮州市区" placeholder="如：潮州市区">
+                            </div>
+                        </div>
+                        
+                        <div class="form-actions">
+                            <button type="button" id="saveMetadata" class="btn-primary">
+                                <i class="fas fa-save"></i> 保存录音
+                            </button>
+                            <button type="button" id="skipItem" class="btn-secondary">
+                                <i class="fas fa-forward"></i> 跳过此项
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- 右侧：录音库管理 -->
+            <div class="library-section">
+                <div class="library-header">
+                    <h3><i class="fas fa-database"></i> 录音库管理</h3>
+                    <div class="library-stats">
+                        <span class="stat-item">
+                            <i class="fas fa-file-audio"></i>
+                            已录制：<span id="recordedCount">0</span>
+                        </span>
+                        <span class="stat-item">
+                            <i class="fas fa-clock"></i>
+                            总时长：<span id="totalDuration">00:00</span>
+                        </span>
+                    </div>
+                </div>
+
+                <!-- 搜索和筛选 -->
+                <div class="library-controls">
+                    <div class="search-box">
+                        <i class="fas fa-search"></i>
+                        <input type="text" id="searchLibrary" placeholder="搜索汉字或拼音...">
+                    </div>
+                    <div class="filter-controls">
+                        <select id="filterType">
+                            <option value="all">所有类型</option>
+                            <option value="literary">文读音</option>
+                            <option value="colloquial">白话音</option>
+                        </select>
+                        <select id="filterStatus">
+                            <option value="all">所有状态</option>
+                            <option value="recorded">已录制</option>
+                            <option value="pending">待录制</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- 录音列表 -->
+                <div class="recordings-list" id="recordingsList">
+                    <!-- 录音项将通过JS动态生成 -->
+                </div>
+
+                <!-- GitHub配置面板 -->
+                <div class="github-config">
+                    <h4><i class="fab fa-github"></i> GitHub配置</h4>
+                    <div class="github-form">
+                        <div class="form-group">
+                            <label for="githubRepo">仓库地址：</label>
+                            <input type="text" id="githubRepo" 
+                                   placeholder="https://github.com/用户名/仓库名">
+                        </div>
+                        <div class="form-group">
+                            <label for="githubBranch">分支：</label>
+                            <input type="text" id="githubBranch" value="main">
+                        </div>
+                        <div class="form-group">
+                            <label for="audioFolder">音频文件夹：</label>
+                            <input type="text" id="audioFolder" value="audio">
+                        </div>
+                        <div class="github-actions">
+                            <button id="testGithub" class="btn-small">
+                                <i class="fas fa-test"></i> 测试连接
+                            </button>
+                            <button id="uploadToGithub" class="btn-small btn-primary">
+                                <i class="fas fa-cloud-upload-alt"></i> 上传音频
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 底部状态栏 -->
+        <footer class="footer">
+            <div class="progress-container">
+                <div class="progress-label">
+                    整体进度：<span id="progressPercentage">0%</span>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill"></div>
+                </div>
+            </div>
+            <div class="footer-info">
+                <span id="storageInfo">本地存储：0 MB / 50 MB</span>
+                <span class="github-status" id="githubStatus">GitHub: 未连接</span>
+            </div>
+        </footer>
+    </div>
+
+    <!-- 音频播放器（隐藏） -->
+    <audio id="audioPlayer" hidden></audio>
+    
+    <!-- 文件导入输入 -->
+    <input type="file" id="fileImport" accept=".json" hidden>
+    
+    <!-- 脚本引入 -->
+    <script src="recorder.js"></script>
+</body>
+</html>

@@ -1,0 +1,607 @@
+/* 基础样式 */
+:root {
+    --primary-color: #2c3e50;
+    --secondary-color: #3498db;
+    --accent-color: #e74c3c;
+    --success-color: #27ae60;
+    --warning-color: #f39c12;
+    --light-color: #ecf0f1;
+    --dark-color: #2c3e50;
+    --border-color: #bdc3c7;
+    --record-color: #e74c3c;
+    --play-color: #27ae60;
+    --shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    --transition: all 0.3s ease;
+}
+
+[data-theme="dark"] {
+    --primary-color: #1a252f;
+    --secondary-color: #2980b9;
+    --light-color: #2c3e50;
+    --dark-color: #ecf0f1;
+    --border-color: #34495e;
+    --shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif;
+    background-color: var(--light-color);
+    color: var(--dark-color);
+    line-height: 1.6;
+    transition: var(--transition);
+}
+
+.container {
+    max-width: 1600px;
+    margin: 0 auto;
+    padding: 20px;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* 头部样式 */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 0;
+    margin-bottom: 20px;
+    border-bottom: 2px solid var(--secondary-color);
+}
+
+.header h1 {
+    color: var(--primary-color);
+    font-size: 1.8rem;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.header-controls {
+    display: flex;
+    gap: 10px;
+}
+
+/* 按钮样式 */
+.btn-icon, .btn-small, .btn-primary, .btn-secondary, .btn-record, .btn-stop, .btn-play {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: var(--transition);
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.btn-icon {
+    background: transparent;
+    color: var(--secondary-color);
+    font-size: 1.2rem;
+    padding: 8px;
+}
+
+.btn-icon:hover {
+    background-color: rgba(52, 152, 219, 0.1);
+}
+
+.btn-primary {
+    background-color: var(--secondary-color);
+    color: white;
+}
+
+.btn-primary:hover {
+    background-color: #2980b9;
+    transform: translateY(-2px);
+}
+
+.btn-secondary {
+    background-color: var(--light-color);
+    color: var(--dark-color);
+    border: 1px solid var(--border-color);
+}
+
+.btn-secondary:hover {
+    background-color: var(--border-color);
+}
+
+.btn-small {
+    padding: 6px 12px;
+    font-size: 12px;
+}
+
+.btn-record {
+    background-color: var(--record-color);
+    color: white;
+    font-size: 16px;
+    padding: 12px 24px;
+}
+
+.btn-record:hover:not(:disabled) {
+    background-color: #c0392b;
+    transform: scale(1.05);
+}
+
+.btn-stop {
+    background-color: #95a5a6;
+    color: white;
+    font-size: 16px;
+    padding: 12px 24px;
+}
+
+.btn-stop:hover:not(:disabled) {
+    background-color: #7f8c8d;
+}
+
+.btn-play {
+    background-color: var(--play-color);
+    color: white;
+    font-size: 16px;
+    padding: 12px 24px;
+}
+
+.btn-play:hover:not(:disabled) {
+    background-color: #219653;
+}
+
+/* 主要内容区域 */
+.main-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+    flex: 1;
+    margin-bottom: 30px;
+}
+
+/* 录音控制区域 */
+.recorder-section {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.recorder-controls {
+    background: white;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: var(--shadow);
+}
+
+.current-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding: 15px;
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    border-radius: 8px;
+}
+
+.item-display {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.character-display {
+    font-size: 48px;
+    font-weight: bold;
+    color: var(--primary-color);
+    min-width: 60px;
+    text-align: center;
+}
+
+.pinyin-display {
+    font-size: 24px;
+    color: var(--secondary-color);
+    font-family: monospace;
+}
+
+.item-navigation {
+    display: flex;
+    gap: 10px;
+}
+
+.recorder-status {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 20px 0;
+    padding: 15px;
+    background: #f8f9fa;
+    border-radius: 8px;
+}
+
+.status-indicator {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.status-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background-color: #27ae60;
+}
+
+.status-dot.recording {
+    background-color: var(--record-color);
+    animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+    0% { opacity: 1; }
+    50% { opacity: 0.5; }
+    100% { opacity: 1; }
+}
+
+.timer {
+    font-family: monospace;
+    font-size: 24px;
+    font-weight: bold;
+    color: var(--primary-color);
+}
+
+.waveform-container {
+    width: 100%;
+    height: 120px;
+    background: #2c3e50;
+    border-radius: 8px;
+    margin: 20px 0;
+    overflow: hidden;
+}
+
+#waveformCanvas {
+    width: 100%;
+    height: 100%;
+}
+
+.recorder-buttons {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+    margin: 20px 0;
+}
+
+.quality-indicator {
+    background: #f8f9fa;
+    padding: 15px;
+    border-radius: 8px;
+    margin-top: 20px;
+}
+
+.quality-meter, .volume-indicator {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 10px;
+}
+
+.meter-bar, .volume-bar {
+    flex: 1;
+    height: 10px;
+    background: #ddd;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.meter-fill, .volume-level {
+    height: 100%;
+    background: linear-gradient(90deg, #e74c3c, #f39c12, #27ae60);
+    border-radius: 5px;
+    width: 75%;
+}
+
+.quality-score {
+    font-weight: bold;
+    color: var(--primary-color);
+}
+
+/* 元数据表单 */
+.metadata-form {
+    background: white;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: var(--shadow);
+}
+
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+    margin-bottom: 15px;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: 500;
+    color: var(--primary-color);
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    font-size: 14px;
+    transition: var(--transition);
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: var(--secondary-color);
+    box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
+}
+
+.form-actions {
+    display: flex;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+/* 录音库管理 */
+.library-section {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.library-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.library-stats {
+    display: flex;
+    gap: 20px;
+}
+
+.stat-item {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    background: var(--light-color);
+    padding: 8px 15px;
+    border-radius: 20px;
+}
+
+.library-controls {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.search-box {
+    position: relative;
+}
+
+.search-box i {
+    position: absolute;
+    left: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #7f8c8d;
+}
+
+.search-box input {
+    width: 100%;
+    padding: 12px 15px 12px 45px;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    font-size: 14px;
+}
+
+.filter-controls {
+    display: flex;
+    gap: 10px;
+}
+
+.filter-controls select {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+}
+
+.recordings-list {
+    flex: 1;
+    overflow-y: auto;
+    max-height: 400px;
+    background: white;
+    border-radius: 8px;
+    padding: 10px;
+    box-shadow: var(--shadow);
+}
+
+.recording-item {
+    display: flex;
+    align-items: center;
+    padding: 12px;
+    margin-bottom: 10px;
+    background: #f8f9fa;
+    border-radius: 6px;
+    border-left: 4px solid;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.recording-item:hover {
+    transform: translateX(5px);
+    background: #e9ecef;
+}
+
+.recording-item.recorded {
+    border-left-color: var(--success-color);
+}
+
+.recording-item.pending {
+    border-left-color: var(--warning-color);
+}
+
+.recording-item.selected {
+    background: #e3f2fd;
+    border-left-color: var(--secondary-color);
+}
+
+.recording-char {
+    font-size: 24px;
+    font-weight: bold;
+    min-width: 40px;
+    text-align: center;
+}
+
+.recording-info {
+    flex: 1;
+    margin-left: 15px;
+}
+
+.recording-pinyin {
+    font-family: monospace;
+    color: var(--secondary-color);
+    font-weight: bold;
+}
+
+.recording-meta {
+    font-size: 12px;
+    color: #7f8c8d;
+    display: flex;
+    gap: 10px;
+    margin-top: 2px;
+}
+
+.recording-controls {
+    display: flex;
+    gap: 5px;
+}
+
+.recording-duration {
+    font-family: monospace;
+    color: var(--primary-color);
+    margin-left: 15px;
+}
+
+/* GitHub配置 */
+.github-config {
+    background: white;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: var(--shadow);
+}
+
+.github-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.github-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+/* 底部状态栏 */
+.footer {
+    margin-top: auto;
+    padding-top: 20px;
+    border-top: 1px solid var(--border-color);
+}
+
+.progress-container {
+    margin-bottom: 15px;
+}
+
+.progress-label {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 5px;
+    font-size: 14px;
+}
+
+.progress-bar {
+    height: 10px;
+    background: #ddd;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #3498db, #2ecc71);
+    width: 0%;
+    transition: width 0.5s ease;
+}
+
+.footer-info {
+    display: flex;
+    justify-content: space-between;
+    font-size: 12px;
+    color: #7f8c8d;
+}
+
+.github-status.connected {
+    color: var(--success-color);
+}
+
+.github-status.disconnected {
+    color: #e74c3c;
+}
+
+/* 响应式设计 */
+@media (max-width: 1200px) {
+    .main-content {
+        grid-template-columns: 1fr;
+    }
+    
+    .recorder-buttons {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 768px) {
+    .container {
+        padding: 10px;
+    }
+    
+    .header {
+        flex-direction: column;
+        gap: 15px;
+        text-align: center;
+    }
+    
+    .form-row {
+        grid-template-columns: 1fr;
+    }
+    
+    .recorder-buttons {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* 工具类 */
+.hidden {
+    display: none !important;
+}
+
+.recording {
+    color: var(--record-color) !important;
+}

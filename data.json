@@ -1,0 +1,150 @@
+{
+  "library": [
+    {
+      "character": "食",
+      "pinyin": "ziak8",
+      "type": "colloquial",
+      "tone": 8,
+      "description": "潮州话最常用读音，用于'食饭'、'食茶'等日常用语",
+      "exampleWords": "食饭,食茶,好食",
+      "frequency": 5
+    },
+    {
+      "character": "我",
+      "pinyin": "ua2",
+      "type": "colloquial",
+      "tone": 2,
+      "description": "第一人称代词，潮州话口语读音",
+      "exampleWords": "我个,我爱,我个书",
+      "frequency": 5
+    },
+    {
+      "character": "你",
+      "pinyin": "le2",
+      "type": "colloquial",
+      "tone": 2,
+      "description": "第二人称代词",
+      "exampleWords": "你好,你个,你爱",
+      "frequency": 5
+    },
+    {
+      "character": "伊",
+      "pinyin": "i1",
+      "type": "colloquial",
+      "tone": 1,
+      "description": "第三人称代词，相当于'他/她'",
+      "exampleWords": "伊人,伊个,伊来",
+      "frequency": 4
+    },
+    {
+      "character": "好",
+      "pinyin": "ho2",
+      "type": "colloquial",
+      "tone": 2,
+      "description": "基本形容词，表示'好'的意思",
+      "exampleWords": "好食,好看,好人",
+      "frequency": 5
+    },
+    {
+      "character": "爱",
+      "pinyin": "ain3",
+      "type": "literary",
+      "tone": 3,
+      "description": "书面语读音，表示'爱'",
+      "exampleWords": "爱情,爱国,爱人",
+      "frequency": 4
+    },
+    {
+      "character": "去",
+      "pinyin": "ke3",
+      "type": "colloquial",
+      "tone": 3,
+      "description": "表示'去'的动作",
+      "exampleWords": "去地块,去学校,去上班",
+      "frequency": 4
+    },
+    {
+      "character": "来",
+      "pinyin": "lai5",
+      "type": "colloquial",
+      "tone": 5,
+      "description": "表示'来'的动作",
+      "exampleWords": "来去,来食,来睇",
+      "frequency": 4
+    },
+    {
+      "character": "有",
+      "pinyin": "u6",
+      "type": "colloquial",
+      "tone": 6,
+      "description": "表示'有'的意思",
+      "exampleWords": "有闲,有钱,有人",
+      "frequency": 4
+    },
+    {
+      "character": "无",
+      "pinyin": "bo5",
+      "type": "colloquial",
+      "tone": 5,
+      "description": "表示'没有'的意思",
+      "exampleWords": "无钱,无人,无时间",
+      "frequency": 4
+    },
+    {
+      "character": "家",
+      "pinyin": "ge1",
+      "type": "colloquial",
+      "tone": 1,
+      "description": "家庭、家族的意思",
+      "exampleWords": "家己人,家庭,家乡",
+      "frequency": 3
+    },
+    {
+      "character": "己",
+      "pinyin": "gi6",
+      "type": "colloquial",
+      "tone": 6,
+      "description": "表示'自己'的意思",
+      "exampleWords": "家己人,己个",
+      "frequency": 3
+    },
+    {
+      "character": "人",
+      "pinyin": "nang5",
+      "type": "colloquial",
+      "tone": 5,
+      "description": "表示'人'的意思",
+      "exampleWords": "家己人,人客,好人",
+      "frequency": 4
+    },
+    {
+      "character": "做",
+      "pinyin": "zo3",
+      "type": "colloquial",
+      "tone": 3,
+      "description": "表示'做'的动作",
+      "exampleWords": "做工,做乜,做好",
+      "frequency": 4
+    },
+    {
+      "character": "睇",
+      "pinyin": "toin2",
+      "type": "colloquial",
+      "tone": 2,
+      "description": "表示'看'的意思",
+      "exampleWords": "睇书,睇电视,睇戏",
+      "frequency": 4
+    }
+  ],
+  "recordings": [],
+  "metadata": {
+    "version": "1.0.0",
+    "created": "2024-01-01",
+    "description": "潮州话发音录音库基础数据",
+    "totalCharacters": 15,
+    "language": "潮州话",
+    "region": "潮汕地区",
+    "pinyinSystem": "潮州话拼音",
+    "license": "CC BY-SA 4.0"
+  }
+}
